@@ -1,0 +1,21 @@
+{
+    "name": "agence-ho5/carbon-field-uuid",
+    "description": "Carbon Fields extension, that adds switch type to carbon field.",
+    "keywords": [
+        "wordpress",
+        "carbon-field",
+        "carbon-field-uuid"
+    ],
+    "homepage": "https://github.com/agence-ho5/carbon-field-uuid",
+    "type": "wordpress-muplugin",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Fabien LEGE",
+            "email": "fabien.lege@ho5group.com"
+        }
+    ],
+    "require": {
+        "htmlburger/carbon-fields": "*"
+    }
+}

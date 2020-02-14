@@ -1,0 +1,68 @@
+<?php
+
+namespace Carbon_Field_UUID;
+
+use Carbon_Fields\Field\Field;
+
+class UUID_Field extends Field {
+
+  /**
+   * Prepare the field type for use
+   * Called once per field type when activated
+   */
+  public static function field_type_activated() {
+    $dir    = \Carbon_Field_UUID\DIR . '/languages/';
+    $locale = get_locale();
+    $path   = $dir . $locale . '.mo';
+    load_textdomain( 'carbon-field-uuid', $path );
+  }
+
+  /**
+   * Enqueue scripts and styles in admin
+   * Called once per field type
+   */
+  public static function admin_enqueue_scripts() {
+    $root_uri = \Carbon_Fields\Carbon_Fields::directory_to_url( \Carbon_Field_UUID\DIR );
+
+    // Enqueue field styles.
+    wp_enqueue_style(
+      'carbon-field-uuid',
+      $root_uri . '/build/bundle' . (  ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min' ) . '.css'
+    );
+
+    // Enqueue field scripts.
+    wp_enqueue_script(
+      'carbon-field-uuid',
+      $root_uri . '/build/bundle' . (  ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min' ) . '.js',
+      array( 'carbon-fields-core' )
+    );
+  }
+
+  /**
+   * Load the field value from an input array based on its name
+   *
+   * @param array $input Array of field names and values.
+   */
+  public function set_value_from_input( $input ) {
+    parent::set_value_from_input( $input );
+
+    $value = $this->get_value();
+    if ( $value === '' ) {
+      return;
+    }
+
+    $this->set_value( $value );
+  }
+
+  /**
+   * Returns an array that holds the field data, suitable for JSON representation.
+   *
+   * @param bool $load  Should the value be loaded from the database or use the value from the current instance.
+   * @return array
+   */
+  public function to_json( $load ) {
+    $field_data = parent::to_json( $load );
+
+    return $field_data;
+  }
+}
